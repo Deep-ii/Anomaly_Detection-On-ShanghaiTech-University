@@ -15,6 +15,18 @@
 
 ---
 
+## 🎬 Live Demo
+
+> Real-time anomaly detection on ShanghaiTech Campus Dataset — Streamlit dashboard (left) + Telegram Bot alert (right)
+
+<p align="center">
+  <img src="https://private-user-images.githubusercontent.com/204545951/559894132-bedd9569-e5c8-4c9a-aac3-f1a9e6b09790.gif" alt="Anomaly Detection Demo" width="100%"/>
+</p>
+
+> 🚨 Score spikes to **1.771** as the system detects an ongoing abnormal event across 90 consecutive frames — Telegram Bot simultaneously pushes the annotated frame screenshot to subscribers.
+
+---
+
 ## 📌 Overview
 
 Traditional CCTV systems require constant human monitoring — inefficient, expensive, and error-prone at scale. This project presents a **zero-shot anomaly detection framework** that uses vision-language AI to automatically identify suspicious events in real-time surveillance footage.
@@ -188,8 +200,8 @@ Built with **Streamlit**, the monitoring interface provides:
 **Status Display:**
 ```
 ✅ NORMAL ACTIVITY          🚨 ANOMALY DETECTED
-Score: 0.45                 Score: 1.73
-                            Abnormal Frames: 18
+Score: 0.45                 Score: 1.771
+                            Abnormal Frames: 90
 ```
 
 ---
@@ -199,24 +211,24 @@ Score: 0.45                 Score: 1.73
 A live Telegram Bot integration notifies security personnel automatically:
 
 - Users subscribe by sending `/start` to the bot
-- When `abnormal_count % N == 0` (every N consecutive abnormal frames), an alert is triggered
+- When `abnormal_count % N == 0` (every N consecutive abnormal frames), an alert fires
 - Bot sends the **actual CCTV frame screenshot** with anomaly details:
 
 ```
 🚨 CCTV ANOMALY ALERT 🚨
 
-Frame Index: 1243
-Anomaly Score: 1.847
-Continuous Abnormal Frames: 30
+Frame Index: 301
+Anomaly Score: 1.771
+Continuous Abnormal Frames: 75
 Status: Ongoing abnormal activity
 ```
 
 **Setup:**
 ```bash
-# Run the listener to handle subscriptions
+# Terminal 1 — handle subscriptions
 python telegram_listener.py
 
-# Run the dashboard (alerting is built-in)
+# Terminal 2 — launch dashboard (alerting built-in)
 streamlit run app.py
 ```
 
@@ -228,7 +240,7 @@ streamlit run app.py
 ```bash
 pip install torch torchvision
 pip install openai-clip
-pip install ultralytics       # YOLO
+pip install ultralytics
 pip install streamlit
 pip install opencv-python
 pip install pandas numpy scipy
@@ -267,11 +279,8 @@ python final_visualize_output.py
 
 **Step 5 — Launch real-time dashboard:**
 ```bash
-# Terminal 1: Start Telegram listener
-python telegram_listener.py
-
-# Terminal 2: Launch Streamlit dashboard
-streamlit run app.py
+python telegram_listener.py   # Terminal 1
+streamlit run app.py          # Terminal 2
 ```
 
 ---
@@ -284,6 +293,7 @@ streamlit run app.py
 | Approach | Zero-shot (no abnormal training samples) |
 | Smoothing | Gaussian temporal smoothing (σ=5) |
 | Normalization | Z-score using training video statistics |
+| Max Anomaly Score Observed | 1.771 (continuous 90-frame anomaly event) |
 
 ---
 
@@ -291,7 +301,7 @@ streamlit run app.py
 
 - Detection is **prompt-dependent** — behaviors not described in prompts will not be flagged
 - No explicit **temporal modeling** — analysis is frame-by-frame, not sequential
-- CLIP was not trained specifically for surveillance — performance varies with lighting and camera angle
+- CLIP was not trained specifically for surveillance — performance varies with lighting/camera angle
 - Performance depends on **YOLO detection quality** (missed detections = missed anomalies)
 
 ---
@@ -312,7 +322,7 @@ streamlit run app.py
 ```
 Anomaly_Detection-On-ShanghaiTech-University/
 │
-├── app.py                      # Streamlit real-time dashboard + Telegram alerting
+├── app.py                      # Streamlit dashboard + Telegram alerting
 ├── telegram_listener.py        # Telegram Bot subscription handler
 ├── crop.py                     # Frame extraction from video
 ├── crop_test.py                # Frame extraction for test set
