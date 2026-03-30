@@ -245,5 +245,5 @@ MSc Data Science — Marwadi University, Rajkot
 ---
 
 <p align="center">
-  <i>Built as part of MSc Data Science research at Marwadi University, Rajkot</i>
+  <i>Built as part of MSc Data Science research Feel Free To Contact Me Guys :)) /i>
 </p>
