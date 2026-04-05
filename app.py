@@ -12,7 +12,7 @@ st.set_page_config(
     layout="wide"
 )
 
-TELEGRAM_TOKEN = "7899528274:AAGvIvalLSB-aWOLqUg6JzqkBNsPUHW68NA"
+TELEGRAM_TOKEN = ""
 SUBSCRIBER_FILE = "subscribers.json"
 
 ALERT_EVERY_N_FRAMES = 15   # send alert every N abnormal frames
